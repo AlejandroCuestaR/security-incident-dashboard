@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2 class="mb-0">Panel de incidentes</h2>
+  <span class="badge bg-secondary fs-6">Total: {{ incidentes | length }}</span>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <canvas id="graficaSeveridad" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-body">
+        <canvas id="graficaEstado" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h4 class="mb-3">Incidentes registrados</h4>
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>ID</th><th>Título</th><th>Severidad</th><th>Estado</th><th>Técnica MITRE</th><th>Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for inc in incidentes %}
+        <tr>
+            <td>{{ inc.id }}</td>
+            <td>{{ inc.titulo }}</td>
+            <td><span class="badge bg-{{ 'danger' if inc.severidad.value == 'critica' else 'warning' if inc.severidad.value == 'alta' else 'secondary' }}">{{ inc.severidad.value }}</span></td>
+            <td>{{ inc.estado.value }}</td>
+            <td>{{ inc.tecnica_mitre or '—' }}</td>
+            <td>{{ inc.fecha_creacion.strftime('%Y-%m-%d %H:%M') if inc.fecha_creacion else '—' }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6" class="text-center text-muted">No hay incidentes registrados.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Gráfica de severidad (dona)
+fetch('/incidentes/metricas/severidad')
+  .then(res => res.json())
+  .then(data => {
+    new Chart(document.getElementById('graficaSeveridad'), {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(data),
+        datasets: [{ data: Object.values(data), backgroundColor: ['#6c757d','#ffc107','#fd7e14','#dc3545'] }]
+      },
+      options: { plugins: { title: { display: true, text: 'Incidentes por severidad' } } }
+    });
+  });
+
+// Gráfica de estado (barras)
+fetch('/incidentes/metricas/estado')
+  .then(res => res.json())
+  .then(data => {
+    new Chart(document.getElementById('graficaEstado'), {
+      type: 'bar',
+      data: {
+        labels: Object.keys(data),
+        datasets: [{ label: 'Incidentes', data: Object.values(data), backgroundColor: ['#0d6efd','#ffc107','#198754'] }]
+      },
+      options: { plugins: { title: { display: true, text: 'Incidentes por estado' } }, scales: { y: { beginAtZero: true } } }
+    });
+  });
+</script>
+{% endblock %}

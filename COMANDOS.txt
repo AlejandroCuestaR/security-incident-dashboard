@@ -1,0 +1,100 @@
+==============================================================================
+ SECURITY INCIDENT DASHBOARD — COMANDOS (Windows CMD)
+ Carpeta: C:\Users\julii\Downloads\Proyecto1_Security_Incident_Dashboard
+==============================================================================
+
+------------------------------------------------------------------------------
+ 0) ABRIR LA CARPETA DEL PROYECTO (siempre empieza por aquí)
+------------------------------------------------------------------------------
+   cd /d C:\Users\julii\Downloads\Proyecto1_Security_Incident_Dashboard
+
+   (El /d permite cambiar de unidad si hiciera falta. Verifica con:  dir )
+
+
+==============================================================================
+ OPCIÓN A — EJECUTAR CON DOCKER  (RECOMENDADA: levanta app + MySQL juntos)
+==============================================================================
+ Requiere tener Docker Desktop instalado y ABIERTO.
+
+   cd /d C:\Users\julii\Downloads\Proyecto1_Security_Incident_Dashboard
+   docker compose up --build
+
+ Luego abre en el navegador:
+   http://localhost:8000/         -> login
+   http://localhost:8000/dashboard
+   http://localhost:8000/docs     -> Swagger (API)
+
+ Para DETENER:  pulsa Ctrl + C  en la ventana, y después:
+   docker compose down            (detiene y borra contenedores)
+   docker compose down -v         (además borra los datos de la BD)
+
+ Ver contenedores corriendo:
+   docker ps
+
+
+==============================================================================
+ OPCIÓN B — EJECUTAR EN LOCAL (sin Docker)  -> necesitas un MySQL instalado
+==============================================================================
+
+ 1) Crear el entorno virtual (solo la PRIMERA vez):
+       cd /d C:\Users\julii\Downloads\Proyecto1_Security_Incident_Dashboard
+       python -m venv venv
+
+ 2) Activar el entorno (CADA vez que abras una CMD nueva):
+       venv\Scripts\activate
+    (Verás (venv) al inicio de la línea. Para salir luego:  deactivate )
+
+ 3) Instalar dependencias (solo la primera vez, o si cambian):
+       pip install -r requirements.txt
+
+ 4) Crear tu archivo .env a partir de la plantilla (solo la primera vez):
+       copy .env.example .env
+    Luego ÁBRELO con el Bloc de notas y ajusta tus datos:
+       notepad .env
+    Ejemplo de DATABASE_URL para MySQL local:
+       DATABASE_URL=mysql+pymysql://root:TU_PASSWORD@localhost/incidentes_db
+       SECRET_KEY=pon-una-clave-larga-aleatoria
+       ALGORITHM=HS256
+       ACCESS_TOKEN_EXPIRE_MINUTES=60
+    (Antes crea la base en MySQL:  CREATE DATABASE incidentes_db;  )
+
+ 5) Levantar la API:
+       uvicorn app.main:app --reload
+    Abre:  http://localhost:8000/docs
+
+ 6) (Opcional) Cargar datos de ejemplo en otra CMD (con el venv activado):
+       python seed.py
+    Crea el usuario:  analista@soc.local  /  Cambiame123
+
+
+------------------------------------------------------------------------------
+ USO RÁPIDO DE LA API (desde Swagger /docs)
+------------------------------------------------------------------------------
+ 1. POST /auth/registro  -> crea un usuario
+ 2. POST /auth/login     -> copia el "access_token"
+ 3. Botón "Authorize" (arriba a la derecha) -> pega el token
+ 4. POST /incidentes/    -> crea incidentes
+ 5. Mira el dashboard en  http://localhost:8000/dashboard
+
+
+------------------------------------------------------------------------------
+ RESUMEN "DÍA A DÍA" (cuando ya está todo instalado)
+------------------------------------------------------------------------------
+   cd /d C:\Users\julii\Downloads\Proyecto1_Security_Incident_Dashboard
+   venv\Scripts\activate
+   uvicorn app.main:app --reload
+   ( ...trabajar... )
+   Ctrl + C   para detener
+   deactivate
+
+------------------------------------------------------------------------------
+ GIT (si lo subes a GitHub en el futuro)
+------------------------------------------------------------------------------
+   git init
+   git add .
+   git commit -m "Security Incident Dashboard"
+   git branch -M main
+   git remote add origin https://github.com/TU-USUARIO/security-incident-dashboard.git
+   git push -u origin main
+   (OJO: el archivo .env NO se sube; ya está en .gitignore)
+==============================================================================

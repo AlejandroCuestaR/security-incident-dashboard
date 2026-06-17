@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-3">Gestión de incidentes</h2>
+<p class="text-muted">
+  Crea un incidente desde la API protegida (<code>POST /incidentes/</code>) usando tu
+  token JWT. Abajo se listan los incidentes existentes.
+</p>
+
+<table class="table table-bordered align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th><th>Título</th><th>Descripción</th><th>Severidad</th><th>Estado</th><th>MITRE</th><th>Analista</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for inc in incidentes %}
+    <tr>
+      <td>{{ inc.id }}</td>
+      <td>{{ inc.titulo }}</td>
+      <td>{{ inc.descripcion }}</td>
+      <td><span class="badge bg-{{ 'danger' if inc.severidad.value == 'critica' else 'warning' if inc.severidad.value == 'alta' else 'secondary' }}">{{ inc.severidad.value }}</span></td>
+      <td>{{ inc.estado.value }}</td>
+      <td>{{ inc.tecnica_mitre or '—' }}</td>
+      <td>{{ inc.analista_id }}</td>
+    </tr>
+    {% else %}
+    <tr><td colspan="7" class="text-center text-muted">No hay incidentes registrados.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

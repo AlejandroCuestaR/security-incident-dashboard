@@ -1,0 +1,29 @@
+body {
+    background-color: #f5f6f8;
+}
+
+.nav-link-inline {
+    color: #cdd3da;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+}
+
+.nav-link-inline:hover {
+    color: #fff;
+}
+
+.card {
+    border: none;
+    border-radius: 0.6rem;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}
+
+.table thead th {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
