@@ -1,4 +1,4 @@
-@'
+
 # 🛡️ Security Incident Dashboard
 
 Aplicación Full Stack para gestión de incidentes de seguridad: registro, clasificación por severidad, seguimiento de estado y métricas visuales — mapeado a técnicas MITRE ATT&CK.
@@ -77,3 +77,27 @@ uvicorn app.main:app --reload
 | [07-despliegue-azure](docs/07-despliegue-azure.md) | Despliegue en Azure |
 
 ## 📁 Estructura del repositorio
+\`\`\`
+security-incident-dashboard/
+├── README.md
+├── seed.py
+├── docs/
+├── app/
+│   ├── main.py
+│   ├── models.py
+│   ├── schemas.py
+│   ├── database.py
+│   ├── auth.py
+│   ├── routers/
+│   ├── templates/
+│   └── static/css/
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+├── .env.example
+└── capturas/
+\`\`\`
+
+## 👤 Autor
+**Alejandro Cuesta Rodríguez** — Ingeniero en Sistemas Computacionales
+[LinkedIn](https://www.linkedin.com/in/alejandro-cuesta-rodriguez-5044723a7) | [GitHub](https://github.com/AlejandroCuestaR)
