@@ -62,7 +62,7 @@ uvicorn app.main:app --reload
 ![Dashboard](capturas/dashboardv0.png)
 
 ### Documentación Swagger
-![Swagger](capturas/swaggerv2.png)
+![Swagger](capturas/swaggerv0.png)
 
 ## 📚 Documentación detallada
 | Doc | Contenido |
