@@ -1,4 +1,4 @@
-Set-Content -Path README.md -Encoding UTF8 -Value @'
+
 # Security Incident Dashboard
 
 Aplicacion Full Stack para gestion de incidentes de seguridad: registro, clasificacion por severidad, seguimiento de estado y metricas visuales, mapeado a tecnicas MITRE ATT&CK.
