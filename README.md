@@ -1,41 +1,59 @@
+@'
+# 🛡️ Security Incident Dashboard
 
-# Security Incident Dashboard
+Aplicación Full Stack para gestión de incidentes de seguridad: registro, clasificación por severidad, seguimiento de estado y métricas visuales — mapeado a técnicas MITRE ATT&CK.
 
-Aplicacion Full Stack para gestion de incidentes de seguridad: registro, clasificacion por severidad, seguimiento de estado y metricas visuales, mapeado a tecnicas MITRE ATT&CK.
+## 🎯 Objetivo
+Sistema de gestión de incidentes de seguridad que permite a un equipo SOC (Security Operations Center) registrar, clasificar y dar seguimiento a alertas, con métricas visuales de severidad, estado y técnicas MITRE. Demuestra un stack de desarrollo Full Stack moderno aplicado a un caso de uso de ciberseguridad.
 
-## Objetivo
-Sistema de gestion de incidentes de seguridad que permite a un equipo SOC registrar, clasificar y dar seguimiento a alertas, con metricas visuales de severidad, estado y tecnicas MITRE.
+## 🔧 Stack tecnológico
+- **Backend:** FastAPI + SQLAlchemy
+- **Base de datos:** MySQL 8
+- **Autenticación:** JWT (OAuth2 Password Flow)
+- **Frontend:** Jinja2 (SSR) + Bootstrap 5 + Chart.js
+- **Infraestructura:** Docker + Docker Compose + Microsoft Azure
+- **Documentación de API:** OpenAPI / Swagger (automática en /docs)
 
-## Stack tecnologico
-- Backend: FastAPI + SQLAlchemy
-- Base de datos: MySQL 8
-- Autenticacion: JWT (OAuth2 Password Flow)
-- Frontend: Jinja2 (SSR) + Bootstrap 5 + Chart.js
-- Infraestructura: Docker + Docker Compose + Microsoft Azure
-- Documentacion de API: OpenAPI / Swagger (automatica en /docs)
+## 🚀 Cómo ejecutarlo
 
-## Como ejecutarlo
-
-### Opcion A - Docker
+### Opción A — Docker (recomendada, todo incluido)
+```bash
 git clone https://github.com/AlejandroCuestaR/security-incident-dashboard.git
 cd security-incident-dashboard
 cp .env.example .env
 docker compose up --build
+```
 
 Visita:
-- http://localhost:8000/ - login
-- http://localhost:8000/dashboard - dashboard con metricas
-- http://localhost:8000/docs - documentacion Swagger
+- http://localhost:8000/ — pantalla de login
+- http://localhost:8000/dashboard — dashboard con métricas
+- http://localhost:8000/docs — documentación interactiva (Swagger)
 
-## Funcionalidades
-- CRUD completo de incidentes
-- Autenticacion JWT con usuarios y roles
-- Dashboard con metricas por severidad y estado (Chart.js)
-- Metricas adicionales por tecnica MITRE
-- Integracion con Wazuh
-- Documentacion automatica OpenAPI / Swagger
+### Opción B — Local sin Docker
+```bash
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn app.main:app --reload
+```
 
-## Capturas
+### Primer uso
+1. Registra un usuario: POST /auth/registro
+2. Login: POST /auth/login → copia el access_token
+3. En Swagger pulsa Authorize y pega el token
+4. Crea incidentes con POST /incidentes/
+5. (Opcional) carga datos de ejemplo: python seed.py
+
+## 📊 Funcionalidades
+- CRUD completo de incidentes (crear, listar, obtener, actualizar, eliminar)
+- Autenticación JWT con usuarios y roles
+- Dashboard con métricas por severidad y estado (Chart.js)
+- Endpoints de métricas adicionales por técnica MITRE
+- Integración con Wazuh (POST /incidentes/desde-wazuh)
+- Documentación automática OpenAPI / Swagger
+
+## 📸 Capturas
 
 ### Login
 ![Login](capturas/login.png)
@@ -43,12 +61,19 @@ Visita:
 ### Dashboard
 ![Dashboard](capturas/dashboardv0.png)
 
-### Documentacion Swagger
+### Documentación Swagger
 ![Swagger](capturas/swaggerv2.png)
 
-## Documentacion detallada
-Ver carpeta docs/ para arquitectura, modelo de datos, API, autenticacion, frontend, metricas, docker y despliegue en Azure.
+## 📚 Documentación detallada
+| Doc | Contenido |
+|---|---|
+| [00-introduccion](docs/00-introduccion.md) | Propósito y arquitectura |
+| [01-modelo-datos](docs/01-modelo-datos.md) | Tablas, relaciones y diagrama ER |
+| [02-backend-api](docs/02-backend-api.md) | Endpoints y patrón de diseño |
+| [03-autenticacion](docs/03-autenticacion.md) | Flujo JWT y buenas prácticas |
+| [04-frontend](docs/04-frontend.md) | Jinja2 + Bootstrap (SSR) |
+| [05-dashboard-metricas](docs/05-dashboard-metricas.md) | Métricas y Chart.js |
+| [06-docker](docs/06-docker.md) | Dockerización |
+| [07-despliegue-azure](docs/07-despliegue-azure.md) | Despliegue en Azure |
 
-## Autor
-Alejandro Cuesta Rodriguez - Ingeniero en Sistemas Computacionales
-'@
+## 📁 Estructura del repositorio
