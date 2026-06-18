@@ -1,7 +1,17 @@
 # Capturas
 
-Coloca aquí las capturas de pantalla que pide la guía. Se generan **ejecutando
-la app** (no se pueden producir sin levantar el proyecto y una base de datos):
+## 📸 Capturas
+
+### Login
+![Login](capturas/login.png)
+
+### Dashboard
+![Dashboard](capturas/dashboardv0.png)
+
+### Documentación Swagger
+![Swagger](capturas/swaggerv2.png)
+![Swagger](capturas/swaggerv1.png)
+![Swagger](capturas/swaggerv0.png)
 
 | Archivo | Cómo obtenerla |
 |---------|----------------|
