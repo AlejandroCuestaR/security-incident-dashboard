@@ -1,4 +1,3 @@
-
 # 🛡️ Security Incident Dashboard
 
 Aplicación Full Stack para gestión de incidentes de seguridad: registro, clasificación por severidad, seguimiento de estado y métricas visuales — mapeado a técnicas MITRE ATT&CK.
@@ -63,6 +62,8 @@ uvicorn app.main:app --reload
 
 ### Documentación Swagger
 ![Swagger](capturas/swaggerv0.png)
+![Swagger](capturas/swaggerv1.png)
+![Swagger](capturas/swaggerv2.png)
 
 ## 📚 Documentación detallada
 | Doc | Contenido |
